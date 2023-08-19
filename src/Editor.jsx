@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/Editor.css";
 import "./styles/App.css";
 import Button from "./components/Button";
@@ -24,39 +24,57 @@ const EditorCanvas = (props) => {
 };
 
 const EditorPicker = (props) => {
+  const components = [
+    {
+      icon: textIcon,
+      heading: "Text Input",
+      innerText: "Supports Markdown or HTML",
+    },
+    {
+      icon: buttonIcon,
+      heading: "Button",
+      innerText: "Trigger actions like run queries, export data etc.",
+    },
+    {
+      icon: dropdownIcon,
+      heading: "Dropdown",
+      innerText: "Select from a set of options, with a dropdown",
+    },
+    {
+      icon: tableIcon,
+      heading: "Table",
+      innerText: "Display tabular data with pagination",
+    },
+  ];
+  const [filteredComponents, setFilteredComponents] = useState(components);
+  const handleSearch = (e) => {
+    let currValue = e.target.value;
+    if (currValue === "") return setFilteredComponents(components);
+
+    // filter components list based on search query
+    const filteredComponents = components.filter((component) =>
+      component.heading.toLowerCase().includes(currValue.toLowerCase())
+    );
+    setFilteredComponents(filteredComponents);
+  };
+
   return (
     <div className="editor-picker">
-      <div class="w-69">
-        <div className="flex items-center justify-center w-9 h-9 bg-transparent absolute top-10px">
+      <div className="w-69">
+        <div className="flex items-center justify-center w-9 h-9 bg-transparent absolute top-30">
           <img className="p-2" src={searchIcon} alt="icon" />
         </div>
         <input
           type="text"
-          placeholder="      Search Components"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md text-xs mb-4"
+          placeholder="Search Components"
+          className="w-full px-9 py-2 border border-gray-300 rounded-md text-sm mb-4"
+          onChange={handleSearch}
         />
       </div>
-      <h4 className="text-left text-sm">Components</h4>
-      <Button
-        icon={textIcon}
-        heading="Text Input"
-        innerText="Supports Markdown or HTML"
-      />
-      <Button
-        icon={buttonIcon}
-        heading="Button"
-        innerText="Trigger actions like run queries, export data etc."
-      />
-      <Button
-        icon={dropdownIcon}
-        heading="Dropdown"
-        innerText="Select from a set of options, with a dropdown"
-      />
-      <Button
-        icon={tableIcon}
-        heading="Table"
-        innerText="Display tabular data with pagination"
-      />
+      <h4 className="text-left text-sm text-slate-600">Components</h4>
+      {filteredComponents.map((component, index) => (
+        <Button key={index} {...component} />
+      ))}
     </div>
   );
 };

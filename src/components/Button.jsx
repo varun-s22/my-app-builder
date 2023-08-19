@@ -1,22 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "../styles/Button.css";
 
 function Button(props) {
   const buttonRef = useRef(null);
   useEffect(() => {
-    if (props.x && props.y && buttonRef.current) {
-      buttonRef.current.style.position = "absolute";
-      buttonRef.current.style.left = props.x + "px";
-      buttonRef.current.style.top = props.y + "px";
-      buttonRef.current.style.outline = "indigo solid 2px";
-      buttonRef.current.style.background = "white";
-      buttonRef.current.style.borderRadius = "10px";
-      buttonRef.current.style.padding = "10px";
-      buttonRef.current.style.boxShadow =
-        "3px 5px 10px 2px rgba(0, 0, 0, 0.75)";
-      if (props.width) buttonRef.current.style.width = props.width + "px";
+    if (props.options && buttonRef.current) {
+      Object.assign(buttonRef.current.style, props.options);
+      buttonRef.current.style.width = props.width + "px";
     }
-  }, [props?.x, props?.y]);
+  }, [props?.x, props?.y, props?.options]);
 
   return (
     <button

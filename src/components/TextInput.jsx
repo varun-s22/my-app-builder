@@ -3,18 +3,11 @@ import { useEffect, useRef } from "react";
 function TextInput(props) {
   const inputRef = useRef(null);
   useEffect(() => {
-    if (props.x && props.y && inputRef.current) {
-      inputRef.current.style.position = "absolute";
-      inputRef.current.style.left = props.x + "px";
-      inputRef.current.style.top = props.y + "px";
-      inputRef.current.style.outline = "indigo solid 2px";
-      inputRef.current.style.background = "white";
-      inputRef.current.style.borderRadius = "10px";
-      inputRef.current.style.padding = "10px";
-      inputRef.current.style.boxShadow = "3px 5px 10px 2px rgba(0,0,0,0.75)";
-      if (props.width) inputRef.current.style.width = props.width + "px";
+    if (props.options && inputRef.current) {
+      Object.assign(inputRef.current.style, props.options);
+      inputRef.current.style.width = props.width + "px";
     }
-  }, [props?.x, props?.y]);
+  }, [props?.x, props?.y, props?.options]);
   return (
     <input
       type="text"

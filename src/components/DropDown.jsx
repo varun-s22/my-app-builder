@@ -2,18 +2,11 @@ import { useEffect, useRef, useState } from "react";
 function DropDown(props) {
   const dropDownRef = useRef(null);
   useEffect(() => {
-    if (props.x && props.y && dropDownRef.current) {
-      dropDownRef.current.style.position = "absolute";
-      dropDownRef.current.style.left = props.x + "px";
-      dropDownRef.current.style.top = props.y + "px";
-      dropDownRef.current.style.outline = "indigo solid 2px";
-      dropDownRef.current.style.background = "white";
-      dropDownRef.current.style.borderRadius = "10px";
-      dropDownRef.current.style.padding = "10px";
-      dropDownRef.current.style.boxShadow = "3px 5px 10px 2px rgba(0,0,0,0.75)";
-      if (props.width) dropDownRef.current.style.width = props.width + "px";
+    if (props.options && dropDownRef.current) {
+      Object.assign(dropDownRef.current.style, props.options);
+      dropDownRef.current.style.width = props.width + "px";
     }
-  }, [props?.x, props?.y]);
+  }, [props?.x, props?.y, props?.options]);
   return (
     <div
       className="relative inline-block text-left border rounded-md p-2 bg-white shadow-md"

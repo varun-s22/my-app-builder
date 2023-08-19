@@ -110,14 +110,24 @@ const Editor = (props) => {
   const [middleX, setMiddleX] = useState(0);
   const [middleY, setMiddleY] = useState(0);
   const [renderedComponent, setRenderedComponent] = useState([]);
+  const options = {
+    left: middleX + "px",
+    top: middleY + "px",
+    position: "absolute",
+    outline: "indigo solid 2px",
+    background: "white",
+    borderRadius: "10px",
+    padding: "10px",
+    boxShadow: "3px 5px 10px 2px rgba(0,0,0,0.75)",
+  };
+
   const handleClick = (component) => {
     switch (component.key) {
       case "text":
         setRenderedComponent([
           ...renderedComponent,
           <TextInput
-            x={middleX}
-            y={middleY}
+            options={options}
             width={400}
             placeholder="You just rendered a Input component"
           />,
@@ -126,19 +136,19 @@ const Editor = (props) => {
       case "button":
         setRenderedComponent([
           ...renderedComponent,
-          <Button x={middleX} y={middleY} heading="Click Me" width={100} />,
+          <Button options={options} heading="Click Me!!" width={150} />,
         ]);
         break;
       case "dropdown":
         setRenderedComponent([
           ...renderedComponent,
-          <DropDown x={middleX} y={middleY} width={200} />,
+          <DropDown options={options} width={200} />,
         ]);
         break;
       case "table":
         setRenderedComponent([
           ...renderedComponent,
-          <Table x={middleX} y={middleY} width={600} />,
+          <Table options={options} width={600} />,
         ]);
         break;
       default:

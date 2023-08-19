@@ -1,0 +1,28 @@
+.editor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.editor-canvas {
+  width: calc(100% - 250px);
+}
+
+.editor-picker {
+  padding: 25px;
+  width: 350px;
+  border-left: 1px solid black;
+  background-color: #f9fbfc;
+}
+
+.editor-btn{
+  width: 100%;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

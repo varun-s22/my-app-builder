@@ -1,8 +1,8 @@
 import "../styles/Button.css";
 function Button(props) {
   return (
-    <button className="bg-transparent space-y-5 sm:py-6 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 shadow-none border-b border-gray-300">
-      <div className="flex items-center justify-center w-12 h-12 bg-white-200 bg-white shadow-xl">
+    <button className="bg-transparent space-y-5 sm:py-6 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 shadow-none border-b border-gray-300 component-btn">
+      <div className="flex items-center justify-center w-12 h-12 bg-white-200 bg-white shadow-xl ml-2">
         <img className="p-2 bg-white" src={props.icon} alt="icon" />
       </div>
 

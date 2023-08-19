@@ -1,0 +1,6 @@
+.component-btn{
+    width: 310px;
+}
+.component-btn:hover {
+  background-color: #e9eff2;
+}

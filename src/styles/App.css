@@ -10,11 +10,21 @@ html {
 }
 
 .App-header {
-  height: 100px;
-  border-bottom: 1px solid grey;
+  background-color: white;
+  height: 75px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
+  margin: 5px;
+  margin-bottom: 0;
+  grid-area: header;
+  margin-right: 0;
+  margin-top: 0;
+  gap: 0.7em;
+  padding: 10px;
+}
+
+.App-header-text {
+  padding-top: 5px;
+  font-size: medium;
 }

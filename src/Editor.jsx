@@ -2,17 +2,23 @@ import React from "react";
 import "./styles/Editor.css";
 import "./styles/App.css";
 import Button from "./components/Button";
-import bullseyeIcon from "./images/bullseye.png";
+import Header from "./components/Header";
 import buttonIcon from "./images/button.png";
 import dropdownIcon from "./images/dropdown.png";
 import tableIcon from "./images/table.png";
 import searchIcon from "./images/search-icon.png";
+import textIcon from "./images/text.png";
 
 const EditorCanvas = (props) => {
   return (
     <div className="editor-canvas">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <h4> Put the drag and drop interface over here! </h4>
+      <Header />
+      <div className="editor-canva">
+        <h1 className="editor-canva-placeholder font-bold">
+          {" "}
+          Drag & drop the components here.
+        </h1>{" "}
+      </div>
     </div>
   );
 };
@@ -32,7 +38,7 @@ const EditorPicker = (props) => {
       </div>
       <h4 className="text-left text-sm">Components</h4>
       <Button
-        icon={bullseyeIcon}
+        icon={textIcon}
         heading="Text Input"
         innerText="Supports Markdown or HTML"
       />

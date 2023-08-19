@@ -1,19 +1,36 @@
-import React, { useState } from "react";
-import "./styles/Editor.css";
-import "./styles/App.css";
-import Button from "./components/Button";
-import Header from "./components/Header";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import buttonIcon from "./images/button.png";
 import dropdownIcon from "./images/dropdown.png";
 import tableIcon from "./images/table.png";
 import searchIcon from "./images/search-icon.png";
 import textIcon from "./images/text.png";
+import Button from "./components/Button";
+import TextInput from "./components/TextInput";
+import Header from "./components/Header";
+import DropDown from "./components/DropDown";
+import Table from "./components/Table";
+import "./styles/Editor.css";
+import "./styles/App.css";
 
-const EditorCanvas = (props) => {
+const EditorCanvas = forwardRef((props, ref) => {
+  const canva = ref;
+  const { helper } = props;
+  const { setMiddleX, setMiddleY } = helper;
+  useEffect(() => {
+    const canvaElement = canva.current;
+    const canvaElementTop = canvaElement.offsetTop;
+    const canvaElementLeft = canvaElement.offsetLeft;
+    const canvaElementBottom = canvaElementTop + canvaElement.offsetHeight;
+    const canvaElementRight = canvaElementLeft + canvaElement.offsetWidth;
+    const middleX = (canvaElementLeft + canvaElementRight) / 2;
+    const middleY = (canvaElementTop + canvaElementBottom) / 2;
+    setMiddleX(middleX);
+    setMiddleY(middleY);
+  }, []);
   return (
     <div className="editor-canvas">
       <Header />
-      <div className="editor-canva">
+      <div className="editor-canva" ref={canva}>
         <h1 className="editor-canva-placeholder font-bold">
           {" "}
           Drag & drop the components here.
@@ -21,26 +38,31 @@ const EditorCanvas = (props) => {
       </div>
     </div>
   );
-};
+});
 
 const EditorPicker = (props) => {
+  const { handleClick } = props;
   const components = [
     {
+      key: "text",
       icon: textIcon,
       heading: "Text Input",
       innerText: "Supports Markdown or HTML",
     },
     {
+      key: "button",
       icon: buttonIcon,
       heading: "Button",
       innerText: "Trigger actions like run queries, export data etc.",
     },
     {
+      key: "dropdown",
       icon: dropdownIcon,
       heading: "Dropdown",
       innerText: "Select from a set of options, with a dropdown",
     },
     {
+      key: "table",
       icon: tableIcon,
       heading: "Table",
       innerText: "Display tabular data with pagination",
@@ -64,26 +86,71 @@ const EditorPicker = (props) => {
         <div className="flex items-center justify-center w-9 h-9 bg-transparent absolute top-30">
           <img className="p-2" src={searchIcon} alt="icon" />
         </div>
-        <input
-          type="text"
+        <TextInput
           placeholder="Search Components"
-          className="w-full px-9 py-2 border border-gray-300 rounded-md text-sm mb-4"
-          onChange={handleSearch}
+          handleSearch={handleSearch}
         />
       </div>
       <h4 className="text-left text-sm text-slate-600">Components</h4>
       {filteredComponents.map((component, index) => (
-        <Button key={index} {...component} />
+        <Button
+          key={index}
+          {...component}
+          onClick={() => {
+            handleClick(component);
+          }}
+        />
       ))}
     </div>
   );
 };
 
 const Editor = (props) => {
+  const canva = useRef(null);
+  const [middleX, setMiddleX] = useState(0);
+  const [middleY, setMiddleY] = useState(0);
+  const [renderedComponent, setRenderedComponent] = useState([]);
+  const handleClick = (component) => {
+    switch (component.key) {
+      case "text":
+        setRenderedComponent([
+          ...renderedComponent,
+          <TextInput
+            x={middleX}
+            y={middleY}
+            width={400}
+            placeholder="You just rendered a Input component"
+          />,
+        ]);
+        break;
+      case "button":
+        setRenderedComponent([
+          ...renderedComponent,
+          <Button x={middleX} y={middleY} heading="Click Me" width={100} />,
+        ]);
+        break;
+      case "dropdown":
+        setRenderedComponent([
+          ...renderedComponent,
+          <DropDown x={middleX} y={middleY} />,
+        ]);
+        break;
+      case "table":
+        setRenderedComponent([
+          ...renderedComponent,
+          <Table x={middleX} y={middleY} width={600} />,
+        ]);
+        break;
+      default:
+        setRenderedComponent(null);
+        break;
+    }
+  };
   return (
     <div className="editor">
-      <EditorCanvas />
-      <EditorPicker />
+      <EditorCanvas ref={canva} helper={{ setMiddleX, setMiddleY }} />
+      <EditorPicker handleClick={handleClick} />
+      {renderedComponent.map((component) => component)}
     </div>
   );
 };

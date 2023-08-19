@@ -12,7 +12,8 @@ function Button(props) {
       buttonRef.current.style.background = "white";
       buttonRef.current.style.borderRadius = "10px";
       buttonRef.current.style.padding = "10px";
-      buttonRef.current.style.boxShadow = "3px 5px 10px 2px rgba(0,0,0,0.75)";
+      buttonRef.current.style.boxShadow =
+        "3px 5px 10px 2px rgba(0, 0, 0, 0.75)";
       if (props.width) buttonRef.current.style.width = props.width + "px";
     }
   }, [props?.x, props?.y]);

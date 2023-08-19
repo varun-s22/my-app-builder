@@ -15,15 +15,22 @@ function DropDown(props) {
     }
   }, [props?.x, props?.y]);
   return (
-    <div class="relative inline-block text-left" ref={dropDownRef}>
-      <select class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-        <option>Option 1</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
+    <div
+      className="relative inline-block text-left border rounded-md p-2 bg-white shadow-md"
+      style={{ width: props.width }}
+      ref={dropDownRef}
+    >
+      <select
+        className="dropdown-menu-option appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        ref={dropDownRef}
+      >
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
       </select>
-      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
         <svg
-          class="fill-current h-4 w-4 text-gray-400"
+          className="fill-current h-4 w-4 text-gray-400"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
         >

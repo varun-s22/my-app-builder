@@ -38,3 +38,7 @@
   justify-content: center;
   cursor: pointer;
 }
+
+.dropdown-menu-option{
+  width: 180px;
+}

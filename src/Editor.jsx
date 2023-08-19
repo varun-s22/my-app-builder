@@ -132,7 +132,7 @@ const Editor = (props) => {
       case "dropdown":
         setRenderedComponent([
           ...renderedComponent,
-          <DropDown x={middleX} y={middleY} />,
+          <DropDown x={middleX} y={middleY} width={200} />,
         ]);
         break;
       case "table":

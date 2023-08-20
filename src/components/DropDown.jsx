@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+
 function DropDown(props) {
   const dropDownRef = useRef(null);
 

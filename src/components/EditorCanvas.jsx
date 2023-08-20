@@ -30,6 +30,12 @@ const EditorCanvas = (props) => {
   const componentsData = useSelector((state) => {
     return state.cords.cords;
   });
+  useEffect(() => {
+    if (componentsData.length > 0) {
+      localStorage.setItem("components", JSON.stringify(componentsData));
+    }
+  }, [componentsData]);
+
   const dispatch = useDispatch();
   const [canvas, setCanvas] = useState({
     top: 0,
@@ -79,11 +85,21 @@ const EditorCanvas = (props) => {
               );
             }}
             onDrag={(e, data) => {
-              // apply polka dot background on canva when dragging
+              // add dragging class to canva when dragging starts
               canva.current.classList.add("dragging");
+
+              // Calculate the snapped x and y positions based on the grid
+              const snappedX = Math.round(data.x / 25) * 25;
+              const snappedY = Math.round(data.y / 25) * 25;
+
+              // Update the draggable data with the snapped positions
+              data.x = snappedX;
+              data.y = snappedY;
             }}
           >
-            <div className="handle">{componentMapping(componentData)}</div>
+            <div className="handle" style={{ opacity: 1 }}>
+              {componentMapping(componentData)}
+            </div>
           </Draggable>
         ))
       ) : (

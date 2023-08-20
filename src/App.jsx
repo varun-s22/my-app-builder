@@ -103,7 +103,7 @@ const App = () => {
           ...componentsData,
           {
             type: "table",
-            options,
+            options: { ...options, width: "500px" },
             id: tableElementId,
             x: 0,
             y: 0,

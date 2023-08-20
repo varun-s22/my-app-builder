@@ -47,6 +47,16 @@ html {
   /* add polka dots 25x25 to background */
   background-image: radial-gradient(#3d3b3b 2px, transparent 2px), radial-gradient(#434141 2px, transparent 2px);
   background-size: 25px 25px;
+  background-position: 25px;
+
+  /* make the background look like it's moving */
+  animation: move 2s linear infinite;
+
+  /* make the dots not come in the way of mouse */
+  pointer-events: none;
+
+  /* make the element transparent */
+  opacity: 0.5;
 }
 
 .hidden{

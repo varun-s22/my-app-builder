@@ -10,13 +10,11 @@ export const cordsSlice = createSlice({
       state.cords = [];
     },
     update: (state, action) => {
-      console.log({ state, action });
       state.cords = action.payload;
-      console.log(state.cords);
     },
   },
 });
 
-export const { clear, update } = cordsSlice.actions;
+export const { clear, update, resize } = cordsSlice.actions;
 
 export default cordsSlice.reducer;

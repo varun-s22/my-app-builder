@@ -7,6 +7,10 @@ html {
 .App {
   text-align: center;
   height: 100%;
+  display: grid;
+  grid-template-areas: 
+      "editor editor-picker"
+      "editor editor-picker";
 }
 
 .App-header {
@@ -27,4 +31,24 @@ html {
 .App-header-text {
   padding-top: 5px;
   font-size: medium;
+}
+
+.input-cursor{
+  cursor: grab;
+}
+
+.handle {
+  position: absolute;
+  z-index: 10;
+  cursor: grab;
+}
+
+.dragging{
+  /* add polka dots 25x25 to background */
+  background-image: radial-gradient(#3d3b3b 2px, transparent 2px), radial-gradient(#434141 2px, transparent 2px);
+  background-size: 25px 25px;
+}
+
+.hidden{
+  display: none;
 }

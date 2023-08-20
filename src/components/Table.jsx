@@ -1,17 +1,12 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 function Table(props) {
   const tableRef = useRef(null);
-  useEffect(() => {
-    if (props.options && tableRef.current) {
-      Object.assign(tableRef.current.style, props.options);
-      tableRef.current.style.width = props.width + "px";
-    }
-  }, [props?.x, props?.y, props?.options]);
+
   return (
     <table
       className="table-auto border-collapse border border-gray-300"
-      style={{ width: props.width }}
+      style={props.options}
       ref={tableRef}
     >
       <thead className="bg-gray-200">

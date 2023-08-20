@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 function DropDown(props) {
   const dropDownRef = useRef(null);
-  useEffect(() => {
-    if (props.options && dropDownRef.current) {
-      Object.assign(dropDownRef.current.style, props.options);
-      dropDownRef.current.style.width = props.width + "px";
-    }
-  }, [props?.x, props?.y, props?.options]);
+
   return (
     <div
       className="relative inline-block text-left border rounded-md p-2 bg-white shadow-md"
-      style={{ width: props.width }}
+      style={props.option}
       ref={dropDownRef}
     >
       <select

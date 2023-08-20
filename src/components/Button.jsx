@@ -4,18 +4,13 @@ import "../styles/Button.css";
 function Button(props) {
   const buttonRef = useRef(null);
   const color = props?.options?.color || "black";
-  useEffect(() => {
-    if (props.options && buttonRef.current) {
-      Object.assign(buttonRef.current.style, props.options);
-      buttonRef.current.style.width = props.width + "px";
-    }
-  }, [props?.x, props?.y, props?.options]);
 
   return (
     <button
       className="bg-transparent space-y-5 sm:py-6 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 shadow-none border-b border-gray-300 component-btn"
       {...(props.onClick && { onClick: props.onClick })}
       ref={buttonRef}
+      style={props.options}
     >
       {props && props.icon && (
         <div className="flex items-center justify-center w-12 h-12 bg-white-200 bg-white shadow-xl ml-2">

@@ -1,79 +1,113 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/App.css";
 
 import Header from "./components/Header";
 import EditorPicker from "./components/EditorPicker";
 import EditorCanvas from "./components/EditorCanvas";
-import TextInput from "./components/TextInput";
-import Button from "./components/Button";
-import DropDown from "./components/DropDown";
-import Table from "./components/Table";
-
-// You can split your components
+import { update } from "./redux/cords";
+import { useDispatch } from "react-redux";
 
 const App = () => {
-  const [middleX, setMiddleX] = useState(0);
-  const [middleY, setMiddleY] = useState(0);
   const [renderedComponent, setRenderedComponent] = useState([]);
+  const [componentsData, setComponentsData] = useState([]);
+  const dispatch = useDispatch();
   const options = {
-    position: "absolute",
     border: "2px solid black",
     background: "white",
     padding: "15px",
+    width: "400px",
   };
-  const handleClick = (component) => {
+
+  useEffect(() => {
+    const components = localStorage.getItem("components");
+    if (components && components.length > 0) {
+      setComponentsData(JSON.parse(components));
+      dispatch(update(JSON.parse(components)));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("components", JSON.stringify(componentsData));
+    dispatch(update(componentsData));
+  }, [componentsData]);
+
+  const handleClick = (component, componentsData) => {
     switch (component.key) {
       case "text":
-        setRenderedComponent([
-          ...renderedComponent,
-          <TextInput
-            options={options}
-            width={400}
-            placeholder="You just rendered a Input component"
-            cursor="grab"
-          />,
+        let textElementId = Date.now();
+        setComponentsData([
+          ...componentsData,
+          {
+            type: "text",
+            options,
+            placeholder: "You just rendered a Input component",
+            id: textElementId,
+            x: 0,
+            y: 0,
+          },
         ]);
         break;
       case "button":
-        setRenderedComponent([
-          ...renderedComponent,
-          <Button
-            options={{
-              ...options,
-              background: "#007bff",
-              color: "white",
-              padding: "10px 20px",
-              border: "none",
-              borderRadius: "5px",
-            }}
-            heading="Click Me!!"
-            width={150}
-          />,
+        let buttonElementId = Date.now();
+        const btnOptions = {
+          ...options,
+          background: "#007bff",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          width: "150px",
+          margin: 0,
+          display: "block",
+        };
+        setComponentsData([
+          ...componentsData,
+          {
+            type: "button",
+            heading: "Click Me!!",
+            options: btnOptions,
+            id: buttonElementId,
+            x: 0,
+            y: 0,
+          },
         ]);
         break;
       case "dropdown":
-        setRenderedComponent([
-          ...renderedComponent,
-          <DropDown
-            options={{
-              ...options,
-              padding: "8px 12px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              backgroundColor: "#fff",
-              color: "#333",
-              appearance: "none",
-              outline: "none",
-              cursor: "pointer",
-            }}
-            width={250}
-          />,
+        let dropdownElementId = Date.now();
+        const dropdownOptions = {
+          ...options,
+          padding: "8px 12px",
+          borderRadius: "4px",
+          border: "1px solid #ccc",
+          backgroundColor: "#fff",
+          color: "#333",
+          appearance: "none",
+          outline: "none",
+          cursor: "pointer",
+          width: "250px",
+        };
+        setComponentsData([
+          ...componentsData,
+          {
+            type: "dropdown",
+            options: dropdownOptions,
+            id: dropdownElementId,
+            x: 0,
+            y: 0,
+          },
         ]);
         break;
       case "table":
-        setRenderedComponent([
-          ...renderedComponent,
-          <Table options={options} width={600} />,
+        let tableElementId = Date.now();
+        setComponentsData([
+          ...componentsData,
+          {
+            type: "table",
+            options,
+            id: tableElementId,
+            x: 0,
+            y: 0,
+          },
         ]);
         break;
       default:
@@ -85,14 +119,11 @@ const App = () => {
     <div className="App">
       <div className="editor">
         <Header />
-        <EditorCanvas
-          renderedComponent={renderedComponent}
-          helper={{ setMiddleX, setMiddleY }}
-        />
+        <EditorCanvas />
       </div>
       <EditorPicker
         handleClick={handleClick}
-        setRenderedComponent={setRenderedComponent}
+        setComponentsData={setComponentsData}
       />
     </div>
   );

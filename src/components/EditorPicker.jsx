@@ -6,11 +6,18 @@ import searchIcon from "../images/search-icon.png";
 import textIcon from "../images/text.png";
 import Button from "./Button";
 import TextInput from "./TextInput";
+import { useDispatch, useSelector } from "react-redux";
+import { clear } from "../redux/cords";
 import "../styles/Editor.css";
 import "../styles/App.css";
 
 const EditorPicker = (props) => {
-  const { handleClick, setRenderedComponent } = props;
+  const { handleClick, setComponentsData } = props;
+  const componentsData = useSelector((state) => {
+    return state.cords.cords;
+  });
+
+  const dispatch = useDispatch();
   const components = [
     {
       key: "text",
@@ -66,7 +73,7 @@ const EditorPicker = (props) => {
           key={index}
           {...component}
           onClick={() => {
-            handleClick(component);
+            handleClick(component, componentsData);
           }}
         />
       ))}
@@ -82,7 +89,9 @@ const EditorPicker = (props) => {
           margin: "50px auto 0px auto",
         }}
         onClick={() => {
-          setRenderedComponent([]);
+          dispatch(clear());
+          localStorage.clear("components");
+          setComponentsData([]);
         }}
       />
     </div>

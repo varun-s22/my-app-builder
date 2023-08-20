@@ -2,22 +2,14 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-area: editor;
-  grid-template-areas:
-    "header"
-    "canvas";
 }
 
 .editor-canvas {
   height: calc(100vh - 75px);
-  width: calc(100vw - 351px);
   background-color: #e9eff2;
   display: grid;
   align-items: center;
-  justify-content: center;
-  grid-area: canvas;
   position: relative;
-  overflow: hidden; /* Add this line to clip the draggable components */
 }
 
 .editor-picker {

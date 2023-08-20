@@ -8,7 +8,6 @@ import TextInput from "./components/TextInput";
 import Button from "./components/Button";
 import DropDown from "./components/DropDown";
 import Table from "./components/Table";
-import Draggable from "react-draggable";
 
 // You can split your components
 
@@ -18,11 +17,9 @@ const App = () => {
   const [renderedComponent, setRenderedComponent] = useState([]);
   const options = {
     position: "absolute",
-    outline: "indigo solid 2px",
+    border: "2px solid black",
     background: "white",
-    borderRadius: "10px",
-    padding: "10px",
-    boxShadow: "3px 5px 10px 2px rgba(0,0,0,0.75)",
+    padding: "15px",
   };
   const handleClick = (component) => {
     switch (component.key) {
@@ -40,13 +37,37 @@ const App = () => {
       case "button":
         setRenderedComponent([
           ...renderedComponent,
-          <Button options={options} heading="Click Me!!" width={150} />,
+          <Button
+            options={{
+              ...options,
+              background: "#007bff",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "5px",
+            }}
+            heading="Click Me!!"
+            width={150}
+          />,
         ]);
         break;
       case "dropdown":
         setRenderedComponent([
           ...renderedComponent,
-          <DropDown options={options} width={200} />,
+          <DropDown
+            options={{
+              ...options,
+              padding: "8px 12px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              backgroundColor: "#fff",
+              color: "#333",
+              appearance: "none",
+              outline: "none",
+              cursor: "pointer",
+            }}
+            width={250}
+          />,
         ]);
         break;
       case "table":

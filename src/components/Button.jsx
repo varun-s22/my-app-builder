@@ -3,6 +3,7 @@ import "../styles/Button.css";
 
 function Button(props) {
   const buttonRef = useRef(null);
+  const color = props?.options?.color || "black";
   useEffect(() => {
     if (props.options && buttonRef.current) {
       Object.assign(buttonRef.current.style, props.options);
@@ -23,7 +24,7 @@ function Button(props) {
       )}
       <div className="w-64 text-center space-y-2 sm:text-left">
         <div className="space-y-1.5">
-          <p className={`text-md text-black font-normal`}>{props.heading}</p>
+          <p className={`text-md text-${color} font-normal`}>{props.heading}</p>
           {props && props.innerText && (
             <p className="text-xs text-slate-500">{props.innerText}</p>
           )}

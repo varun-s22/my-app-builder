@@ -16,7 +16,6 @@ const EditorCanvas = (props) => {
 
   useEffect(() => {
     const canvaElement = canva.current;
-    console.dir(canvaElement);
     const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = canvaElement;
     setCanvas({
       top: offsetTop,
@@ -27,33 +26,37 @@ const EditorCanvas = (props) => {
   }, []);
   return (
     <div className="editor-canvas" ref={canva}>
-      <h1 className="editor-canva-placeholder font-bold" ref={dragDropHeading}>
-        Drag & drop the components here.
-      </h1>
-      {renderedComponent.map((component) => (
-        <Draggable
-          defaultPosition={{ x: 0, y: 0 }}
-          bounds={{
-            top: canvas.top - 420,
-            left: canvas.left,
-            right: canvas.right - component.props.width,
-          }}
-          grid={[25, 25]}
-          handle=".handle"
-          onStop={(e, data) => {
-            // remove polka dot background on canva when dragging stops
-            canva.current.classList.remove("dragging");
-            dragDropHeading.current.classList.remove("hidden");
-          }}
-          onDrag={(e, data) => {
-            // apply polka dot background on canva when dragging
-            canva.current.classList.add("dragging");
-            dragDropHeading.current.classList.add("hidden");
-          }}
+      {renderedComponent.length > 0 ? (
+        renderedComponent.map((component) => (
+          <Draggable
+            defaultPosition={{ x: 0, y: 0 }}
+            bounds={{
+              top: canvas.top - 420,
+              left: canvas.left,
+              right: canvas.right - component.props.width,
+            }}
+            grid={[25, 25]}
+            handle=".handle"
+            onStop={(e, data) => {
+              // remove polka dot background on canva when dragging stops
+              canva.current.classList.remove("dragging");
+            }}
+            onDrag={(e, data) => {
+              // apply polka dot background on canva when dragging
+              canva.current.classList.add("dragging");
+            }}
+          >
+            <div className="handle">{component}</div>
+          </Draggable>
+        ))
+      ) : (
+        <h1
+          className="editor-canva-placeholder font-bold"
+          ref={dragDropHeading}
         >
-          <div className="handle">{component}</div>
-        </Draggable>
-      ))}
+          Drag & drop the components here.
+        </h1>
+      )}
     </div>
   );
 };

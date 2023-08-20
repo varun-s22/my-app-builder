@@ -90,7 +90,10 @@ const App = () => {
           helper={{ setMiddleX, setMiddleY }}
         />
       </div>
-      <EditorPicker handleClick={handleClick} />
+      <EditorPicker
+        handleClick={handleClick}
+        setRenderedComponent={setRenderedComponent}
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import "../styles/Editor.css";
 import "../styles/App.css";
 
 const EditorPicker = (props) => {
-  const { handleClick } = props;
+  const { handleClick, setRenderedComponent } = props;
   const components = [
     {
       key: "text",
@@ -70,6 +70,21 @@ const EditorPicker = (props) => {
           }}
         />
       ))}
+      <Button
+        heading="Clear All"
+        options={{
+          background: "#004aaf",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          width: "35%",
+          margin: "50px auto 0px auto",
+        }}
+        onClick={() => {
+          setRenderedComponent([]);
+        }}
+      />
     </div>
   );
 };

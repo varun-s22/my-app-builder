@@ -12,10 +12,11 @@ function DropDown(props) {
       <select
         className="dropdown-menu-option appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         ref={dropDownRef}
+        style={props.options}
       >
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="option1">My name is Anthony</option>
+        <option value="option2">My name is Shikhar</option>
+        <option value="option3">My name is Vaishnavi</option>
       </select>
       <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
         <svg

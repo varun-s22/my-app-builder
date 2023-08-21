@@ -6,7 +6,7 @@ function Table(props) {
   return (
     <table
       className="table-auto border-collapse border border-gray-300"
-      style={props.options}
+      style={{ ...props.options, tableLayout: "fixed" }}
       ref={tableRef}
     >
       <thead className="bg-gray-200">

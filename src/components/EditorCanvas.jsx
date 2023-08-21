@@ -37,29 +37,14 @@ const EditorCanvas = (props) => {
   }, [componentsData]);
 
   const dispatch = useDispatch();
-  const [canvas, setCanvas] = useState({
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  });
 
-  useEffect(() => {
-    const canvaElement = canva.current;
-    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = canvaElement;
-    setCanvas({
-      top: offsetTop,
-      left: offsetLeft,
-      bottom: offsetHeight,
-      right: offsetWidth,
-    });
-  }, []);
   return (
     <div className="editor-canvas" ref={canva}>
       {componentsData.length > 0 ? (
         componentsData.map((componentData) => (
           <Draggable
-            defaultPosition={{ x: componentData.x, y: componentData.y }}
+            key={componentData.id}
+            position={{ x: componentData.x, y: componentData.y }}
             bounds="parent"
             grid={[25, 25]}
             handle=".handle"

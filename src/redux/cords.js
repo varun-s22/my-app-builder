@@ -12,6 +12,19 @@ export const cordsSlice = createSlice({
     update: (state, action) => {
       state.cords = action.payload;
     },
+    resize: (state, action) => {
+      const width = action.payload;
+      state.cords = state.cords.map((item) => {
+        // convert "120px" to 120
+        const numWidth = parseInt(item.options.width);
+        if (item.x < 0) {
+          return { ...item, x: 0 };
+        } else if (item.x + numWidth > width) {
+          return { ...item, x: width - numWidth };
+        }
+        return item; // If no change is needed
+      });
+    },
   },
 });
 

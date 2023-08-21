@@ -4,7 +4,7 @@ import "./styles/App.css";
 import Header from "./components/Header";
 import EditorPicker from "./components/EditorPicker";
 import EditorCanvas from "./components/EditorCanvas";
-import { update } from "./redux/cords";
+import { update, resize } from "./redux/cords";
 import { useDispatch } from "react-redux";
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
     border: "2px solid black",
     background: "white",
     padding: "15px",
-    width: "400px",
   };
 
   useEffect(() => {
@@ -24,6 +23,26 @@ const App = () => {
       setComponentsData(JSON.parse(components));
       dispatch(update(JSON.parse(components)));
     }
+  }, []);
+
+  useEffect(() => {
+    const components = JSON.parse(localStorage.getItem("components"));
+    // resize observer on editor canvas
+
+    if (components && components.length > 0) {
+      dispatch(update(components));
+    }
+    const resizeObserver = new ResizeObserver((entries) => {
+      const width = entries[0].borderBoxSize[0].inlineSize;
+
+      dispatch(resize(width));
+    });
+    const editorCanvas = document.querySelector(".editor-canvas");
+    resizeObserver.observe(editorCanvas);
+
+    return () => {
+      resizeObserver.unobserve(editorCanvas);
+    };
   }, []);
 
   useEffect(() => {
@@ -39,7 +58,7 @@ const App = () => {
           ...componentsData,
           {
             type: "text",
-            options,
+            options: { ...options, width: "250px" },
             placeholder: "You just rendered a Input component",
             id: textElementId,
             x: 0,
@@ -56,10 +75,11 @@ const App = () => {
           padding: "10px 20px",
           border: "none",
           borderRadius: "5px",
-          width: "150px",
+          width: "120px",
           margin: 0,
           display: "block",
         };
+
         setComponentsData([
           ...componentsData,
           {
@@ -84,7 +104,7 @@ const App = () => {
           appearance: "none",
           outline: "none",
           cursor: "pointer",
-          width: "250px",
+          width: "220px",
         };
         setComponentsData([
           ...componentsData,

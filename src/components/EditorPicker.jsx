@@ -75,6 +75,9 @@ const EditorPicker = (props) => {
           onClick={() => {
             handleClick(component, componentsData);
           }}
+          options={{
+            width: "320px",
+          }}
         />
       ))}
       <Button
